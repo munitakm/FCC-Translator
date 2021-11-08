@@ -17,9 +17,9 @@ module.exports = function (app) {
         return res.json({error: 'Invalid value for locale field'});
       const t = new Translator();
       if(form.locale == 'british-to-american') {
-      res.json({translation: t.britishAmerican(form.text)})
+      res.json({text: form.text, translation: t.britishAmerican(form.text)})
       } else { 
-      res.json({translation: t.americanBritish(form.text)})
+      res.json({text: form.text, translation: t.americanBritish(form.text)})
       }
     });
 };

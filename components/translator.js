@@ -7,44 +7,48 @@ class Translator {
 
 britishAmerican (string) { 
 const lString = string.toLowerCase();
+const copy = string;
 let words = Object.keys(bOnly).filter(i => lString.includes(i));
   for(let c of words) { 
   let re = new RegExp(c,'gi');
-    string = string.replace(re, bOnly[c])
+    string = string.replace(re,`<span class="highlight">${bOnly[c]}</span>`)
   }
   words = Object.values(aToBSpelling).filter(i => lString.includes(i));
   for(let c of words) { 
   let re = new RegExp(c, 'gi');
   let replace = Object.keys(aToBSpelling).find(key => aToBSpelling[key] === c);
-    string = string.replace(re, replace)
+    string = string.replace(re, `<span class="highlight">${replace}</span>`)
   }
   words = Object.values(aToBTitles).filter(i => lString.includes(i));
   for(let c of words) { 
   let re = new RegExp(c, 'gi');
   let replace = Object.keys(aToBTitles).find(key => aToBTitles[key] === c);
-    string = string.replace(re, this.firstUpperCase(replace));
+    string = string.replace(re, `<span class="highlight">${this.firstUpperCase(replace)}</span>`);
   }
-  return string;
+  if(string === this.firstUpperCase(copy)) return 'Everything looks good to me!';
+  return this.firstUpperCase(string);
 }
 
 americanBritish (string) { 
 const lString = string.toLowerCase();
+  const copy2 = string;
 let words = Object.keys(aOnly).filter(i => lString.includes(i));
   for(let c of words) { 
   let re = new RegExp(c,'gi');
-    string = string.replace(re, aOnly[c])
+    string = string.replace(re, `<span class="highlight">${aOnly[c]}</span>`)
   }
   words = Object.keys(aToBSpelling).filter(i => lString.includes(i));
   for(let c of words) { 
   let re = new RegExp(c, 'gi');
-    string = string.replace(re, aToBSpelling[c]);
+    string = string.replace(re, `<span class="highlight">${aToBSpelling[c]}</span>`);
   }
   words = Object.keys(aToBTitles).filter(i => lString.includes(i));
   for(let c of words) { 
   let re = new RegExp(c, 'gi');
-    string = string.replace(re, this.firstUpperCase(aToBTitles[c]));
+    string = string.replace(re, `<span class="highlight">${this.firstUpperCase(aToBTitles[c])}</span>`);
   }
-  return string;
+  if(string === this.firstUpperCase(copy2)) return 'Everything looks good to me!';
+  return this.firstUpperCase(string);
 }
 firstUpperCase(str) {
   let first = str[0].toUpperCase();
