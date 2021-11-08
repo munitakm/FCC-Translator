@@ -25,6 +25,14 @@ let words = Object.keys(bOnly).filter(i => lString.includes(i));
   let replace = Object.keys(aToBTitles).find(key => aToBTitles[key] === c);
     string = string.replace(re, `<span class="highlight">${this.firstUpperCase(replace)}</span>`);
   }
+  let r = /\d{2}.\d{2}/g;
+  let hour = string.match(r);
+  if(hour) {
+  for(let c of hour) { 
+   string = string.replace(c, `<span class="highlight">${c.replace('.', ':')}</span>`)
+  }
+  }
+
   if(string === this.firstUpperCase(copy)) return 'Everything looks good to me!';
   return this.firstUpperCase(string);
 }
@@ -46,6 +54,13 @@ let words = Object.keys(aOnly).filter(i => lString.includes(i));
   for(let c of words) { 
   let re = new RegExp(c, 'gi');
     string = string.replace(re, `<span class="highlight">${this.firstUpperCase(aToBTitles[c])}</span>`);
+  }
+  let r = /\d{2}:\d{2}/g;
+  let hour = string.match(r);
+  if(hour) {
+  for(let c of hour) { 
+   string = string.replace(c, `<span class="highlight">${c.replace(':', '.')}</span>`)
+  }
   }
   if(string === this.firstUpperCase(copy2)) return 'Everything looks good to me!';
   return this.firstUpperCase(string);
