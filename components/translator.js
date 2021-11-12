@@ -6,13 +6,22 @@ const bOnly = require('./british-only.js')
 class Translator {
 
 britishAmerican (string) { 
-const lString = string.toLowerCase();
+let lString = string.toLowerCase();
 const copy = string;
-let words = Object.keys(bOnly).filter(i => lString.includes(i));
-  for(let c of words) { 
-  let re = new RegExp(c,'gi');
-    string = string.replace(re,`<span class="highlight">${bOnly[c]}</span>`)
-  }
+let words = Object.keys(bOnly).filter(i => { 
+  let x = new RegExp(`^${i}$`, 'gi');
+  let xDot = new RegExp(`^${i}[.]`, 'gi');
+  let xSpace = new RegExp(`[ ]${i}[ ]`, 'gi');
+  let y = new RegExp(`[ ]${i}$`, 'gi');
+  let yDot = new RegExp(`[ ]${i}[.]`);
+  let ySpace = new RegExp(`[ ]${i}[ ]`, 'gi');
+  string = string.replace(x,`<span class="highlight">${bOnly[i]}</span>`);
+  string = string.replace(xDot,`<span class="highlight"> ${bOnly[i]}.</span>`);
+  string = string.replace(xSpace,`<span class="highlight"> ${bOnly[i]} </span>`);
+  string = string.replace(y,`<span class="highlight"> ${bOnly[i]}</span>`);
+  string = string.replace(yDot,`<span class="highlight"> ${bOnly[i]}.</span>`);
+  string = string.replace(ySpace,`<span class="highlight"> ${bOnly[i]} </span>`);
+});
   words = Object.values(aToBSpelling).filter(i => lString.includes(i));
   for(let c of words) { 
   let re = new RegExp(c, 'gi');
@@ -38,13 +47,22 @@ let words = Object.keys(bOnly).filter(i => lString.includes(i));
 }
 
 americanBritish (string) { 
-const lString = string.toLowerCase();
-  const copy2 = string;
-let words = Object.keys(aOnly).filter(i => lString.includes(i));
-  for(let c of words) { 
-  let re = new RegExp(c,'gi');
-    string = string.replace(re, `<span class="highlight">${aOnly[c]}</span>`)
-  }
+let lString = string.toLowerCase();
+const copy2 = string;
+let words = Object.keys(aOnly).filter(i => { 
+  let x = new RegExp(`^${i}$`, 'gi');
+  let xDot = new RegExp(`^${i}[.]`, 'gi');
+  let xSpace = new RegExp(`[ ]${i}[ ]`, 'gi');
+  let y = new RegExp(`[ ]${i}$`, 'gi');
+  let yDot = new RegExp(`[ ]${i}[.]`);
+  let ySpace = new RegExp(`[ ]${i}[ ]`, 'gi');
+  string = string.replace(x,`<span class="highlight">${aOnly[i]}</span>`);
+  string = string.replace(xDot,`<span class="highlight"> ${aOnly[i]}.</span>`);
+  string = string.replace(xSpace,`<span class="highlight"> ${aOnly[i]} </span>`);
+  string = string.replace(y,`<span class="highlight"> ${aOnly[i]}</span>`);
+  string = string.replace(yDot,`<span class="highlight"> ${aOnly[i]}.</span>`);
+  string = string.replace(ySpace,`<span class="highlight"> ${aOnly[i]} </span>`);
+});
   words = Object.keys(aToBSpelling).filter(i => lString.includes(i));
   for(let c of words) { 
   let re = new RegExp(c, 'gi');
